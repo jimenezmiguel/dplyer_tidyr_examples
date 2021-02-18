@@ -1,7 +1,11 @@
 ---
-output:html_document
+title: "Tidyr Examples"
+author: "Miguel Jimenez"
+output: html_document
 ---
 
+
+#LOVING THIS PAGE
 ``` {r}
 
 
@@ -33,7 +37,6 @@ pre_post%>%
                values_to = "score")
 
 
-?pivot_longer
 
 #do a ggplot
 library(ggplot2)

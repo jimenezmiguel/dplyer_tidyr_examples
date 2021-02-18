@@ -1,4 +1,0 @@
-library(ggplot2)
-ggplot(ChickWeight, aes(x = weight, y = Time)) +
-  geom_point(size = 3, color = "red") +
-  geom_smooth()
