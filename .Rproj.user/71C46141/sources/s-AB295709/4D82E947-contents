@@ -5,14 +5,11 @@ output:html_document
 ``` {r}
 
 
-
-
-
-
 # tidyr
 
 library (tidyr)
 library (untidydata)
+library(ggplot2)
 
 # separate data
 pre_post%>%
@@ -63,7 +60,6 @@ pre_post%>%
   
   #pivot wider example
   
-View(language_diversity)
 
 #pivot wider function 
 
