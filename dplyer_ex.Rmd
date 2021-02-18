@@ -1,0 +1,154 @@
+#select
+library(tidyverse)
+
+mtcars %>%
+  select()
+mtcars 
+  select (mtcars, 3, 5, 6)
+  
+  #select 3 columns
+  
+  
+  select (mtcars, 3: 5) # select two consecutive coluyms
+
+  select (mtcars, 9, 10, 11)
+  #change a column name
+  select (mtcars, hello_world = mpg)
+  
+  
+  #seleccionar columnas que empiezan con D
+  select(mtcars, starts_with("d"))
+  
+  #helper function that selects everything
+  
+  
+  #ver un dataframe
+  glimpse(mtcars)
+  
+  
+  #filter to filter rows with filter ()
+  
+  filter(mtcars, mpg > 20 & mpg > 14) #filter rows with mpg is higher than 
+  filter(mtcars, cyl == 20 | cyl < 200)
+  filter(mtcars, mpg > 20 | disp < 200)
+  
+  
+  #arrange / arrange by order
+  arrange(mtcars, mpg)
+
+  #mutate
+  #create a new colum
+mtcars %>%
+  select(., mpg) %>%
+    mutate(., mpg_x2 = mpg *2)
+
+mtcars %>%
+  select(., mpg) %>%
+  mutate(., mpg_c = mpg - mean(mpg))
+
+  # Another one
+mtcars %>%
+  select(., mpg) %>%
+  mutate(., mpg_c = mpg - sd(mpg))
+
+
+# mtcars %>%
+select(., mpg) %>%
+  mutate(., value = if_else(mpg < 18,  "bad" ,  "good"))
+
+
+#summarize 
+
+#calculate mean value of mpg in mtcars
+
+summarize(mtcars, mpg_mean = mean(mpg))
+
+#calculate the mean value of mpg as a function of cyl
+mtcars %>% 
+  group_by(cyl) %>%
+summarize (., mean_pmg = mean(mpg))
+
+#group_by  
+
+mtcars %>% 
+  group_by(cyl) %>%
+  summarize (., mean_pmg = mean(mpg),
+                        sd_mpg = sd(mpg),
+                        min_mpg = min(mpg),
+                        max_mpg = max (mpg))
+knitr::kable() 
+
+
+
+
+# tidyr
+
+library (tidyr)
+library (untidydata)
+
+# separate data
+pre_post%>%
+  separate(col = 'spec', 
+           into = c ('g', 'hi_lo'), 
+           sep = '_' )
+
+#Unite data
+# separate data
+pre_post%>%
+  unite(., col = 'silly', c('id', 'spec'), 
+            sep =   '-')
+
+
+#pivot wider function 
+
+pre_post%>%
+  pivot_longer(., 
+               col = c('test1', 'test2'),  
+               names_to = 'test',
+               values_to = "score")
+
+
+?pivot_longer
+
+#do a ggplot
+library(ggplot2)
+pre_post
+pre_post%>%
+  ggplot (., aes (x = test1, y = test2)) +
+  geom_point () +
+  geom_smooth (method = lm)
+
+#do a ggplot with it pivot
+#pivot wider function 
+
+pre_post%>%
+  pivot_longer(., 
+               col = c('test1', 'test2'),  
+               names_to = 'test',
+               values_to = "score"
+               ) %>%
+
+  ggplot (data = ., aes (x = test, y = score)) +
+  geom_point () +
+  geom_smooth ( method = lm)
+
+  
+  #pivot wider example
+  
+View(language_diversity)
+
+#pivot wider function 
+
+
+
+ language_diversity %>%
+     pivot_wider(
+       names_from =  Measurement,
+       values_from = Value, 
+     ) %>% 
+   ggplot (., aes( x = log (Population), y = Langs, label = Country)) +
+   geom_point() +
+   geom_text () +
+   geom_smooth(method = lm)
+ 
+ 

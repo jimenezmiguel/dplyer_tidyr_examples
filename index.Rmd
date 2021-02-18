@@ -1,0 +1,84 @@
+---
+output:html_document
+---
+
+``` {r}
+
+
+
+
+
+
+# tidyr
+
+library (tidyr)
+library (untidydata)
+
+# separate data
+pre_post%>%
+  separate(col = 'spec', 
+           into = c ('g', 'hi_lo'), 
+           sep = '_' )
+
+#Unite data
+# separate data
+pre_post%>%
+  unite(., col = 'silly', c('id', 'spec'), 
+            sep =   '-')
+
+
+#pivot wider function 
+
+pre_post%>%
+  pivot_longer(., 
+               col = c('test1', 'test2'),  
+               names_to = 'test',
+               values_to = "score")
+
+
+?pivot_longer
+
+#do a ggplot
+library(ggplot2)
+pre_post
+pre_post%>%
+  ggplot (., aes (x = test1, y = test2)) +
+  geom_point () +
+  geom_smooth (method = lm)
+
+#do a ggplot with it pivot
+#pivot wider function 
+
+pre_post%>%
+  pivot_longer(., 
+               col = c('test1', 'test2'),  
+               names_to = 'test',
+               values_to = "score"
+               ) %>%
+
+  ggplot (data = ., aes (x = test, y = score)) +
+  geom_point () +
+  geom_smooth ( method = lm)
+
+  
+  #pivot wider example
+  
+View(language_diversity)
+
+#pivot wider function 
+
+
+
+ language_diversity %>%
+     pivot_wider(
+       names_from =  Measurement,
+       values_from = Value, 
+     ) %>% 
+   ggplot (., aes( x = log (Population), y = Langs, label = Country)) +
+   geom_point() +
+   geom_text () +
+   geom_smooth(method = lm)
+ 
+ 
+ ```
+ 
